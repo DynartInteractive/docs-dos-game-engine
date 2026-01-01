@@ -7,7 +7,6 @@ Essential modules for 320×200 256-color graphics, double-buffered rendering, an
 ```{toctree}
 :maxdepth: 1
 
-UNITS_REFERENCE
 VGA
 PCX
 BMP

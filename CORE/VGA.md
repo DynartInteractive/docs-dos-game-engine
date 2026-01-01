@@ -1,4 +1,4 @@
-# VGA - Mode 13h Graphics
+# VGA Graphics
 
 VGA Mode 13h driver (320×200, 256 colors).
 

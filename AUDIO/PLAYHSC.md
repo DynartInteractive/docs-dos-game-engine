@@ -1,4 +1,4 @@
-# PLAYHSC - HSC Music Player
+# HSC Music Player
 
 AdLib/OPL2 music player (1994, GLAMOROUS RAY).
 

@@ -423,5 +423,5 @@ See **XICLONE\GAMESCR.PAS** for a real-world implementation in the XICLONE game.
 ## See Also
 
 - [MD5.PAS](MD5.md) - MD5 cryptographic hash
-- [MINIXML.PAS](MINIXML.md) - XML parser/writer
-- [STRUTIL.PAS](STRUTIL.md) - String utilities
+- [MINIXML.PAS](../UTILS/MINIXML.md) - XML parser/writer
+- [STRUTIL.PAS](../UTILS/STRUTIL.md) - String utilities

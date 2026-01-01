@@ -31,7 +31,7 @@ end.
 
 ## Playing Music
 ```pascal
-uses PlayHSC, Crt;
+uses PlayHSC, Keyboard;
 
 var
   Music: HSC_Obj;
@@ -41,7 +41,7 @@ begin
   if Music.LoadFile('DATA\FANTASY.HSC') then
   begin
     Music.Start;
-    while not KeyPressed do
+    while not IsKeyDown(Key_Escape) do
     begin
       { ... your game loop ... }
       Music.Poll; { Music needs polling }

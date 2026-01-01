@@ -228,20 +228,6 @@ PCXTEST.EXE
 
 Test program loads `DATA\TEST.PCX` and displays it with palette.
 
-## Comparison: PCX vs PCX
-
-| Feature | PCX | PCX |
-|---------|-----|-----|
-| **Era** | 1985-1995 (DOS golden age) | 1990s (demoscene) |
-| **Tool** | Aseprite, GIMP, Photoshop | GrafX2 only |
-| **Compression** | Simple RLE (2-byte runs) | Complex RLE (byte/word runs) |
-| **Palette** | End of file (768 bytes) | After header (768 bytes) |
-| **Padding** | BytesPerLine (may pad) | No padding |
-| **Workflow** | Modern (Aseprite) | Retro (GrafX2) |
-| **Games** | DOOM, Duke3D, Commander Keen | Demoscene productions |
-
-**Recommendation**: Use **PCX** for modern pixel art workflows (Aseprite), **PCX** for authentic demoscene aesthetics (GrafX2).
-
 ## Size Limits
 
 - **Max image size**: 65,520 bytes (DOS GetMem limit)

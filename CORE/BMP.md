@@ -1,4 +1,4 @@
-# BMP - Windows Bitmap Image Format
+# BMP Image Format
 
 Loads/saves Windows BMP files (256-color indexed, uncompressed).
 

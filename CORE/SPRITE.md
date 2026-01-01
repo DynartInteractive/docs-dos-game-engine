@@ -1,4 +1,4 @@
-# SPRITE - Delta-Time Animation
+# Sprites
 
 Frame-rate independent sprite animation system.
 

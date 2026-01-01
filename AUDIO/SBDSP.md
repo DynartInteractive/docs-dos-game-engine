@@ -1,4 +1,4 @@
-# SBDSP - Sound Blaster Driver
+# Sound Blaster Driver
 
 Sound Blaster DSP driver with DMA-based digital audio (1995, Romesh Prakashpalan).
 

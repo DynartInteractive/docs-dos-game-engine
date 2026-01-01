@@ -1,4 +1,4 @@
-# HSC Music File Format Specification
+# HSC Music Format
 
 *(HSC AdLib Composer / HSC Tracker, OPL2 Music Data Format)*
 

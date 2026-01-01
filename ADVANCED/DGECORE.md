@@ -9,7 +9,6 @@ Central game loop framework with screen management, resource loading, and subsys
 ### Framework (DGECORE.PAS, DGESCR.PAS)
 - **DGECORE.PAS**: Defines `TGame` base object (reusable framework)
 - **DGESCR.PAS**: Defines `TScreen` base object (screen/state pattern)
-- **No global Game variable** (games provide their own)
 
 ### Game-Specific Implementation
 Games extend `TGame` to add:
@@ -17,7 +16,7 @@ Games extend `TGame` to add:
 - Game-specific state (UI systems, dialog state, etc.)
 - Game-specific initialization
 
-**Example:** XiClone extends `TGame` as `TXiCloneGame` in `GLOBALS.PAS`
+**Example:** XiClone extends `TGame` as `TXiCloneGame` in `XIGAME.PAS`
 
 ## TGame Object
 
@@ -327,7 +326,7 @@ type
 Create a game-specific object that extends `TGame`:
 
 ```pascal
-unit MyGlobals;
+unit MyGame;
 
 interface
 
@@ -394,7 +393,7 @@ end.
 program MyGame;
 
 uses
-  MyGlobals, Keyboard;  { MyGlobals provides Game: TMyGame }
+  MyGame, Keyboard;  { MyGame provides Game: TMyGame }
 
 type
   PMenuScreen = ^TMenuScreen;
@@ -466,7 +465,7 @@ begin
 end;
 
 begin
-  { Initialize game (uses Game: TMyGame from MyGlobals) }
+  { Initialize game (uses Game: TMyGame from MyGame) }
   Game.Init('CONFIG.INI', 'DATA\RES.XML');
 
   { Create and register screens }

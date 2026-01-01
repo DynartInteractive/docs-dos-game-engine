@@ -73,5 +73,5 @@ UseMouse=1
 ## Notes
 
 - Created by SETUP utility
-- GAMEUNIT auto-loads CONFIG.INI on Init
+- DGECORE auto-loads CONFIG.INI on Init
 - Default values: SoundCard=None, SBPort=2, SBIRQ=5, SBDMA=1, UseMouse=True

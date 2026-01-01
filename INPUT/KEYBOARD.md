@@ -1,4 +1,6 @@
-# KEYBOARD - INT 9h Handler
+# Keyboard Handler
+
+Unit: `Keyboard`
 
 Hardware keyboard handler via INT 9h interrupt.
 

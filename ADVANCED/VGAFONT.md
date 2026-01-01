@@ -1,4 +1,6 @@
-# VGAFONT.PAS - Variable-Width Font System Design
+# Variable-Width Font System
+
+Unit: `VGAFont`
 
 A sprite sheet-based variable-width font renderer for high-quality text display in VGA Mode 13h.
 

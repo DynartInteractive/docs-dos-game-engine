@@ -1,5 +1,7 @@
 # BMP Image Format
 
+Unit: `BMP`
+
 Loads/saves Windows BMP files (256-color indexed, uncompressed).
 
 ## Types

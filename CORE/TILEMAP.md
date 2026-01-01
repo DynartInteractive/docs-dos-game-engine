@@ -1,5 +1,7 @@
 # TileMap handling
 
+Units: `TMXLoad` `TMXDraw`
+
 The DOS Game Engine can load `.tmx` files (Tiled Map Editor XML format) with basic functionality:
 - **TMXLOAD.PAS** - Loading TMX files, parsing XML, managing tilesets and layers
 - **TMXDRAW.PAS** - Rendering tilemap layers to framebuffers

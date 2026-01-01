@@ -1,4 +1,6 @@
-# STRMAP - String Map
+# String Map
+
+Unit: `StrMap`
 
 Hash map for string→pointer lookups (256 entries max).
 

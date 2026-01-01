@@ -1,5 +1,7 @@
 # XMS - Extended Memory Manager
 
+Unit: `XMS`
+
 Extended memory (XMS) access via HIMEM.SYS (1992, KIV without Co).
 
 ## Types

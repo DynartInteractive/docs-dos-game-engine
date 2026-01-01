@@ -1,5 +1,7 @@
 # HSC Music Player
 
+Unit: `PlayHSC`
+
 AdLib/OPL2 music player (1994, GLAMOROUS RAY).
 
 ## HSC_obj Methods

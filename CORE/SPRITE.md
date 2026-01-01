@@ -1,5 +1,7 @@
 # Sprites
 
+Unit: `Sprite`
+
 Frame-rate independent sprite animation system.
 
 ## Types

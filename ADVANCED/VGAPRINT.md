@@ -1,4 +1,6 @@
-# VGAPRINT - Embedded Bitmap Font
+# Embedded Bitmap Font
+
+Unit: `VGAPrint`
 
 Simple 8×8 monospace bitmap font for VGA Mode 13h.
 

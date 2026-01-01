@@ -1,5 +1,7 @@
 # XMS Sound Bank
 
+Unit: `SNDBANK`
+
 XMS-based sound library for Sound Blaster (stores sounds in extended memory).
 
 ## Types

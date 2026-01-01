@@ -1,5 +1,7 @@
 # TEXTUI - Text Mode UI
 
+Unit: `TEXTUI`
+
 Text mode ($B800:0000) menu system for SETUP utility.
 
 ## Constants

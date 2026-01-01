@@ -1,5 +1,7 @@
 # STRUTIL - String Utilities
 
+Unit: `StrUtil`
+
 String conversion and manipulation functions.
 
 ## Functions

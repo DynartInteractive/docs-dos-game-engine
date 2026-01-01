@@ -1,4 +1,6 @@
-# VGAUI - VGA UI System
+# Widget-based UI
+
+Unit: `VGAUI`
 
 Widget-based UI framework for VGA Mode 13h with keyboard and mouse support, using Delphi-style event handlers.
 

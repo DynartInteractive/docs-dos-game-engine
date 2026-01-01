@@ -1,4 +1,6 @@
-# MOUSE - DOS Mouse Driver
+# Mouse Handler
+
+Unit: `Mouse`
 
 Mouse input via INT 33h for VGA Mode 13h.
 

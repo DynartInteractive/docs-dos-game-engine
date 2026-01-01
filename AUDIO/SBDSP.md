@@ -1,5 +1,7 @@
 # Sound Blaster Driver
 
+Unit: `SBDSP`
+
 Sound Blaster DSP driver with DMA-based digital audio (1995, Romesh Prakashpalan).
 
 ## Types

@@ -1,4 +1,4 @@
-# LINKLIST - Linked List
+# Linked List
 
 Generic doubly-linked list for pointer values.
 

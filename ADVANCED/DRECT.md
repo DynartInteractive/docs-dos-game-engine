@@ -1,4 +1,6 @@
-# DRECT - Dirty Rectangle System
+# Dirty Rectangle System
+
+Unit: `DRect`
 
 Optimized rendering by tracking changed screen regions.
 

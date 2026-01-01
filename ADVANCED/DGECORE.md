@@ -1,5 +1,7 @@
 # Game Engine Core Architecture
 
+Units: `DGECore` `DGEScr`
+
 Central game loop framework with screen management, resource loading, and subsystem initialization.
 
 ## Architecture Overview

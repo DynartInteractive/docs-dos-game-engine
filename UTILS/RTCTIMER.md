@@ -1,4 +1,6 @@
-# RTCTIMER - RTC High-Resolution Timer
+# RTC High-Resolution Timer
+
+Unit: `RTCTimer`
 
 Real-Time Clock (IRQ8) timer for delta-time game loops. No conflict with HSC (IRQ0).
 

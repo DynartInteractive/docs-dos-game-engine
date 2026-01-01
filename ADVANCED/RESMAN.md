@@ -1,4 +1,6 @@
-# RESMAN - Resource Manager
+# Resource Manager
+
+Unit: `ResMan`
 
 Centralized resource loading from XML manifest.
 

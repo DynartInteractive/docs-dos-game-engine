@@ -1,8 +1,10 @@
-# MINIXML.PAS - Lightweight XML Parser and Writer for Turbo Pascal 7.0
+# Lightweight XML Parser and Writer for Turbo Pascal 7.0
+
+Unit: `MiniXML`
 
 ## Overview
 
-MINIXML is a compact XML parser and writer designed for Turbo Pascal 7.0, providing DOM-style access to XML configuration files and data. It handles XML files up to ~64KB (Turbo Pascal real-mode heap block limit) and supports the core XML features needed for game configuration and data storage.
+MiniXML is a compact XML parser and writer designed for Turbo Pascal 7.0, providing DOM-style access to XML configuration files and data. It handles XML files up to ~64KB (Turbo Pascal real-mode heap block limit) and supports the core XML features needed for game configuration and data storage.
 
 ## Features
 
@@ -647,7 +649,7 @@ XMLTEST.EXE
 
 ## Design Goals
 
-MINIXML was created in 2025 specifically for this DOS game engine with the following priorities:
+MiniXML was created in 2025 specifically for this DOS game engine with the following priorities:
 
 **Memory Efficiency:**
 - Dynamic allocation for all variable-size data

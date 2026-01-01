@@ -1,5 +1,7 @@
 # PCX Image Format
 
+Unit: `PCX`
+
 **PCX** (ZSoft Paintbrush) is a classic DOS image format (1985) widely used in retro games like DOOM, Duke Nukem, and Commander Keen. It's the native export format for [Aseprite](https://www.aseprite.org/), making it perfect for modern pixel art workflows.
 
 ## Overview

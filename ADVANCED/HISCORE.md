@@ -1,4 +1,6 @@
-# HISCORE.PAS - High Score Management with Tamper Protection
+# High Score Management
+
+Unit: `HiScore`
 
 MD5-protected high score table with XML storage. Prevents cheating through cryptographic hash verification.
 

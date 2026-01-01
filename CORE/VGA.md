@@ -1,5 +1,7 @@
 # VGA Graphics
 
+Unit: `VGA`
+
 VGA Mode 13h driver (320×200, 256 colors).
 
 ## Types

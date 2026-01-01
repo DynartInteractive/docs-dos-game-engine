@@ -1,4 +1,6 @@
-# CONFIG - Configuration Management
+# Configuration
+
+Unit: `Config`
 
 Loads/saves CONFIG.INI for sound card settings.
 
@@ -7,7 +9,7 @@ Loads/saves CONFIG.INI for sound card settings.
 ```pascal
 const
   SoundCard_None = 0;
-  SoundCard_Adlib = 1;
+  SoundCard_AdLib = 1;
   SoundCard_SoundBlaster = 2;
 
 const
@@ -52,7 +54,7 @@ begin
   if Cfg.SoundCard = SoundCard_SoundBlaster then
     ResetDSP(Cfg.SBPort, Cfg.SBIRQ, Cfg.SBDMA, 0);
 
-  if Cfg.SoundCard >= SoundCard_Adlib then
+  if Cfg.SoundCard >= SoundCard_AdLib then
   begin
     HSC_obj.Init(0);
     HSC_obj.LoadFile('MUSIC.HSC');

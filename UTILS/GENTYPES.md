@@ -1,4 +1,6 @@
-# GENTYPES - Generic Types
+# Generic Types
+
+Unit: `GenTypes`
 
 Generic pointer and array types for low-level memory operations.
 

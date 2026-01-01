@@ -1,4 +1,6 @@
-# MD5.PAS - MD5 Cryptographic Hash
+# MD5 Hash
+
+Unit: `MD5`
 
 RFC 1321 compliant MD5 implementation for Turbo Pascal 7.0 (1992 era-appropriate).
 

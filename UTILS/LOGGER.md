@@ -1,5 +1,7 @@
 # LOGGER - Debug Logger
 
+Unit: `Logger`
+
 File-based debug logging system.
 
 ## Constants

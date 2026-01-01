@@ -1,5 +1,5 @@
 
-# 🎮 Example Codes
+# Example Codes
 
 ## VGA Graphics
 ```pascal

@@ -1,4 +1,4 @@
-# 🧱 Building from Source
+# Building from Source
 
 **Automated (recommended):**
 ```bash

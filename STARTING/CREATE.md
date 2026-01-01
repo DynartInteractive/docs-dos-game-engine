@@ -1,5 +1,5 @@
 
-# 🎨 Creating Assets
+# Creating Assets
 
 ## PCX Images
 Use [GrafX2](http://grafx2.chez.com/) the DOS pixel art editor (Windows/Linux/Mac):

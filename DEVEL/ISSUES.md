@@ -1,5 +1,5 @@
 
-# ⚠️ Critical Cleanup Rules
+# Critical Cleanup Rules
 
 Always clean up interrupt handlers before exit, or the system will crash:
 
@@ -46,7 +46,7 @@ end.
 - Prevent running other programs
 - Break mouse/keyboard in subsequent programs
 
-# 🐛 Common Issues
+# Common Issues
 
 | Issue | Solution |
 |-------|----------|

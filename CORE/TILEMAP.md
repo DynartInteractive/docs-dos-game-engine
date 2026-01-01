@@ -1,4 +1,4 @@
-# 🟨 TileMap handling
+# TileMap handling
 
 The DOS Game Engine can load `.tmx` files (Tiled Map Editor XML format) with basic functionality:
 - **TMXLOAD.PAS** - Loading TMX files, parsing XML, managing tilesets and layers

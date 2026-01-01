@@ -1,4 +1,4 @@
-# ⏱️ Timing and Delta Time Design
+# Timing and Delta Time Design
 
 This document explains timing strategies for frame-rate independent movement and sprite animations in the DOS Game Engine.
 

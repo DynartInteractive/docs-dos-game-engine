@@ -4,11 +4,11 @@ Central game loop framework with screen management, resource loading, and subsys
 
 ## Architecture Overview
 
-**GAMEUNIT** provides a reusable framework with no game-specific dependencies. Games extend `TGame` to create their own game object with game-specific resources and state.
+**DGECORE** and **DGESCR** provide a reusable framework with no game-specific dependencies. Games extend `TGame` to create their own game object with game-specific resources and state.
 
-### Framework (GAMEUNIT.PAS)
-- Defines `TGame` base object (reusable framework)
-- Defines `TScreen` base object (screen/state pattern)
+### Framework (DGECORE.PAS, DGESCR.PAS)
+- **DGECORE.PAS**: Defines `TGame` base object (reusable framework)
+- **DGESCR.PAS**: Defines `TScreen` base object (screen/state pattern)
 - **No global Game variable** (games provide their own)
 
 ### Game-Specific Implementation
@@ -21,7 +21,7 @@ Games extend `TGame` to add:
 
 ## TGame Object
 
-**Unit:** `GameUnit`
+**Unit:** `DGECore`
 
 Main game object that manages the entire application lifecycle.
 
@@ -259,7 +259,7 @@ type
 
 ## TScreen Object
 
-**Unit:** `GameUnit`
+**Unit:** `DGEScr`
 
 Abstract screen/state object for menu screens, gameplay, etc.
 
@@ -332,7 +332,7 @@ unit MyGlobals;
 interface
 
 uses
-  VGA, VGAFont, GameUnit;
+  VGA, VGAFont, DGECore, DGEScr;
 
 type
   TMyGame = object(TGame)
@@ -499,7 +499,7 @@ end.
 
 ## Notes
 
-- **No global in framework**: `GAMEUNIT.PAS` does not declare a global `Game` variable. Games provide their own by extending `TGame`.
+- **No global in framework**: `DGECORE.PAS` does not declare a global `Game` variable. Games provide their own by extending `TGame`.
 - **Extend TGame**: Create a game-specific object (e.g., `TMyGame = object(TGame)`) with game resources and state.
 - **Override Start**: Load game-specific resources in your overridden `Start` method (call inherited first).
 - **Virtual methods**: All `TScreen` methods are virtual. Override `PostInit`, `Update`, `Show`, `Hide` as needed.

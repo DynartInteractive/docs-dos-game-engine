@@ -1,4 +1,4 @@
-# LOGGER - Debug Logger
+# Logger
 
 Unit: `Logger`
 

@@ -1,4 +1,4 @@
-# STRUTIL - String Utilities
+# String Utilities
 
 Unit: `StrUtil`
 

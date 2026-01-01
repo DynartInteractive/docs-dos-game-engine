@@ -1,4 +1,4 @@
-# Lightweight XML Parser and Writer for Turbo Pascal 7.0
+# Lightweight XML Parser and Writer
 
 Unit: `MiniXML`
 

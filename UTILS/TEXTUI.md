@@ -1,4 +1,4 @@
-# TEXTUI - Text Mode UI
+# Text Mode UI
 
 Unit: `TEXTUI`
 

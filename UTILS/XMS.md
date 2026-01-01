@@ -1,4 +1,4 @@
-# XMS - Extended Memory Manager
+# XMS Memory Manager
 
 Unit: `XMS`
 

@@ -29,13 +29,13 @@ Main game object that manages the entire application lifecycle.
 ### Constructor
 
 ```pascal
-constructor Init(ConfigIniPath: String; ResXmlPath: String);
+constructor Init(AConfig: PConfig; ResXmlPath: String);
 ```
 
-- `ConfigIniPath`: Path to CONFIG.INI file
+- `AConfig`: Pointer to initialized TConfig object (caller owns, game holds reference)
 - `ResXmlPath`: Path to resources XML file (for TResourceManager)
 
-**Note:** Sets internal `CurrentGame` pointer for exit handler.
+**Note:** Sets internal `CurrentGame` pointer for exit handler. The game does NOT own the config object - caller is responsible for initialization and cleanup.
 
 ### Methods
 
@@ -46,12 +46,12 @@ procedure Start; virtual;
 Initialize all subsystems and prepare for game loop:
 
 1. Set up `CleanupOnExit` procedure (handles Ctrl+C/Break gracefully)
-2. Load config: `Config.LoadConfig(ConfigIniPath)`
+2. Load config: `Config^.Load` (loads from Config^.Path)
 3. Initialize resource manager: `ResMan.Init(True)` (lazy loading), then `ResMan.LoadFromXML(ResXmlPath)`
 4. Initialize RTCTimer: `InitRTC(1024)` (1024 Hz for millisecond precision)
 5. Initialize keyboard: `InitKeyboard`
-6. Initialize Sound Blaster: `ResetDSP(Config.SBPort, Config.SBIRQ, Config.SBDMA, 0)` if `Config.SoundCard = SoundCard_SoundBlaster` (2)
-7. Initialize mouse: `InitMouse` if `Config.UseMouse = 1`
+6. Initialize Sound Blaster: `ResetDSP(Config^.SBPort, Config^.SBIRQ, Config^.SBDMA, 0)` if `Config^.SoundCard = SoundCard_SoundBlaster` (2)
+7. Initialize mouse: `InitMouse` if `Config^.UseMouse = 1`
 8. Create framebuffers:
    - `BackgroundBuffer := CreateFrameBuffer` (cleared once, used for static backgrounds)
    - `BackBuffer := CreateFrameBuffer` (working buffer)
@@ -228,8 +228,7 @@ type
   PGame = ^TGame;
   TGame = object
     { Configuration & Resources }
-    Config: TConfig;                 { Game configuration (see CONFIG.PAS) }
-    ConfigFilePath: String;          { Path to CONFIG.INI }
+    Config: PConfig;                 { Game configuration pointer (caller owns) }
     ResFilePath: String;             { Path to resources XML }
     ResMan: TResourceManager;        { Resource manager (see RESMAN.PAS) }
 
@@ -333,7 +332,7 @@ unit MyGame;
 interface
 
 uses
-  VGA, VGAFont, DGECore, DGEScr;
+  VGA, VGAFont, DGECore, DGEScr, Config;
 
 type
   TMyGame = object(TGame)
@@ -345,7 +344,7 @@ type
     HighScore: LongInt;
 
     { Override initialization }
-    constructor Init(const ConfigIniPath: String; const ResXmlPath: String);
+    constructor Init(AConfig: PConfig; const ResXmlPath: String);
     destructor Done; virtual;
     procedure Start; virtual;
 
@@ -358,9 +357,9 @@ var
 
 implementation
 
-constructor TMyGame.Init(const ConfigIniPath: String; const ResXmlPath: String);
+constructor TMyGame.Init(AConfig: PConfig; const ResXmlPath: String);
 begin
-  inherited Init(ConfigIniPath, ResXmlPath);
+  inherited Init(AConfig, ResXmlPath);
 
   { Initialize game-specific state }
   HighScore := 0;
@@ -395,7 +394,7 @@ end.
 program MyGame;
 
 uses
-  MyGame, Keyboard;  { MyGame provides Game: TMyGame }
+  MyGame, Config, Keyboard;  { MyGame provides Game: TMyGame }
 
 type
   PMenuScreen = ^TMenuScreen;
@@ -415,6 +414,7 @@ type
   end;
 
 var
+  GameConfig: TConfig;
   MenuScreen: PMenuScreen;
   GameplayScreen: PGameplayScreen;
 
@@ -467,8 +467,11 @@ begin
 end;
 
 begin
+  { Initialize config }
+  GameConfig.Init('CONFIG.INI');
+
   { Initialize game (uses Game: TMyGame from MyGame) }
-  Game.Init('CONFIG.INI', 'DATA\RES.XML');
+  Game.Init(@GameConfig, 'DATA\RES.XML');
 
   { Create and register screens }
   New(MenuScreen, Init);
@@ -478,12 +481,13 @@ begin
   Game.AddScreen('gameplay', GameplayScreen);
 
   { Start and run }
-  Game.Start;                  { Initialize all subsystems }
+  Game.Start;                  { Initialize all subsystems, loads config }
   Game.SetNextScreen('menu');  { Queue initial screen }
   Game.Run;                    { Main loop }
 
   { Cleanup }
   Game.Done;
+  GameConfig.Done;
 end.
 ```
 

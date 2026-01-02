@@ -103,7 +103,7 @@ Character positions and widths are defined in an XML file:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<font height="32" padding="1">
+<font height="32" padding="1" image="FONT.PCX" replace-color="15">
   <!-- Uppercase letters -->
   <char code="65" x="0" y="0" width="18" />    <!-- A -->
   <char code="66" x="18" y="0" width="16" />   <!-- B -->
@@ -125,8 +125,13 @@ Character positions and widths are defined in an XML file:
 </font>
 ```
 
-**Attributes:**
-- `height`: Font height in pixels (applies to all characters)
+**Font Attributes:**
+- `height` (required): Font height in pixels (applies to all characters)
+- `padding` (optional): Horizontal spacing between characters (default: 0)
+- `image` (required): Path to PCX sprite sheet file (relative to XML file)
+- `replace-color` (optional): Color index to replace for PrintFontTextColored (default: 0 = disabled)
+
+**Character Attributes:**
 - `code`: ASCII character code (0-127)
 - `x`, `y`: Position in sprite sheet (pixels)
 - `width`: Character width in pixels
@@ -159,6 +164,7 @@ type
     Image: TImage;                            { Font sprite sheet }
     Height: Byte;                             { Height of all characters }
     Padding: Byte;                            { Right padding of all characters }
+    ReplaceColor: Byte;                       { Color to replace (0 = no replacement) }
     Chars: array[0..MaxChars-1] of TCharInfo; { Character metadata }
     Loaded: Boolean;                          { True if font successfully loaded }
   end;
@@ -188,8 +194,7 @@ function LoadFont(const XMLFile: string; var Font: TFont): Boolean;
 Loads a font from PCX image and XML metadata files.
 
 **Parameters:**
-- `XMLFile` - Path to XML metadata (e.g., 'FONTS\MAIN.XML')
-- `ImageFile` - Path to PCX sprite sheet (e.g., 'FONTS\MAIN.PCX')
+- `XMLFile` - Path to XML metadata (e.g., 'FONTS\MAIN.XML'). The XML file should contain an `image` attribute pointing to the PCX sprite sheet.
 - `Font` - TFont structure to populate
 
 **Returns:**
@@ -306,16 +311,21 @@ end;
 procedure PrintFontText(
   X, Y: Integer;
   const Text: string;
+  Align: TAlign;
   var Font: TFont;
   FrameBuffer: PFrameBuffer
 );
 ```
 
-Renders text using a loaded font.
+Renders text using a loaded font with horizontal alignment.
 
 **Parameters:**
-- `X, Y` - Starting position in framebuffer (pixels)
+- `X, Y` - Starting position in framebuffer (pixels). X is adjusted based on alignment.
 - `Text` - String to render (ASCII 0-127 only)
+- `Align` - Horizontal alignment (from GENTYPES.PAS):
+  - `Align_Left` (0) - X is left edge of text
+  - `Align_Center` (1) - X is center of text
+  - `Align_Right` (2) - X is right edge of text
 - `Font` - Loaded TFont structure
 - `FrameBuffer` - Target framebuffer to draw into
 
@@ -329,9 +339,10 @@ begin
   LoadFont('FONT.XML', GameFont);
   ScreenBuffer := GetScreenBuffer;
 
-  { Draw text }
-  PrintFontText(100, 50, 'SCORE: 12345', GameFont, ScreenBuffer);
-  PrintFontText(100, 90, 'LEVEL: 5', GameFont, ScreenBuffer);
+  { Draw text with different alignments }
+  PrintFontText(10, 50, 'Left aligned', Align_Left, GameFont, ScreenBuffer);
+  PrintFontText(160, 90, 'Centered', Align_Center, GameFont, ScreenBuffer);
+  PrintFontText(310, 130, 'Right aligned', Align_Right, GameFont, ScreenBuffer);
 end;
 ```
 
@@ -392,61 +403,98 @@ end;
 
 ---
 
-### Additional Helper Functions (Optional)
+### PrintFontTextColored
 
 ```pascal
-{ Calculate text width in pixels (for centering) }
-function GetTextWidth(const Text: string; var Font: TFont): Integer;
-
-{ Draw centered text }
-procedure PrintFontTextCentered(
-  Y: Integer;
-  const Text: string;
-  var Font: TFont;
-  FrameBuffer: PFrameBuffer
-);
-
-{ Draw right-aligned text }
-procedure PrintFontTextRight(
+procedure PrintFontTextColored(
   X, Y: Integer;
   const Text: string;
+  Color: Byte;
+  Align: TAlign;
   var Font: TFont;
   FrameBuffer: PFrameBuffer
 );
 ```
 
-**GetTextWidth implementation:**
+Renders colored text using a loaded font with horizontal alignment and runtime color replacement.
+
+**Parameters:**
+- `X, Y` - Starting position in framebuffer (pixels). X is adjusted based on alignment.
+- `Text` - String to render (ASCII 0-127 only)
+- `Color` - Color to use for replacement (0-255)
+- `Align` - Horizontal alignment (Align_Left, Align_Center, Align_Right)
+- `Font` - Loaded TFont structure (must have ReplaceColor > 0)
+- `FrameBuffer` - Target framebuffer to draw into
+
+**How it works:**
+1. If `Font.ReplaceColor` is 0, calls `PrintFontText` instead (no color replacement)
+2. If `Font.ReplaceColor` > 0, renders text pixel-by-pixel:
+   - Color 0 (transparent) is skipped
+   - Pixels matching `Font.ReplaceColor` are replaced with `Color`
+   - All other pixels are drawn as-is
+
+**Example:**
 ```pascal
-function GetTextWidth(const Text: string; var Font: TFont): Integer;
 var
-  i, Width: Integer;
-  CharCode: Byte;
+  GameFont: TFont;
+  ScreenBuffer: PFrameBuffer;
+
 begin
-  Width := 0;
-  for i := 1 to Length(Text) do
-  begin
-    CharCode := Ord(Text[i]);
-    if (CharCode <= 127) and Font.Chars[CharCode].Defined then
-      Width := Width + Font.Chars[CharCode].Width + Font.Padding;
-  end;
-  GetTextWidth := Width;
+  { Font XML has replace-color="15" attribute }
+  LoadFont('FONT.XML', GameFont);
+  ScreenBuffer := GetScreenBuffer;
+
+  { Draw text in different colors }
+  PrintFontTextColored(160, 50, 'Red', 12, Align_Center, GameFont, ScreenBuffer);
+  PrintFontTextColored(160, 90, 'Green', 10, Align_Center, GameFont, ScreenBuffer);
+  PrintFontTextColored(160, 130, 'Blue', 9, Align_Center, GameFont, ScreenBuffer);
 end;
 ```
 
-**Centered text:**
+**Performance note:**
+- Color replacement uses pixel-by-pixel rendering (slower than PrintFontText)
+- Only use when you need dynamic text coloring
+- Set `ReplaceColor` to 0 in XML if color replacement is not needed
+
+---
+
+### GetTextWidth
+
 ```pascal
-procedure PrintFontTextCentered(
-  Y: Integer;
-  const Text: string;
-  var Font: TFont;
-  FrameBuffer: PFrameBuffer
-);
+function GetTextWidth(const Text: string; var Font: TFont): Integer;
+```
+
+Calculates the pixel width of a text string when rendered with the font.
+
+**Parameters:**
+- `Text` - String to measure (ASCII 0-127 only)
+- `Font` - Loaded TFont structure
+
+**Returns:**
+- Total width in pixels (including padding between characters)
+
+**Example:**
+```pascal
+var
+  Width: Integer;
+begin
+  Width := GetTextWidth('Hello World', GameFont);
+  WriteLn('Text width: ', Width, ' pixels');
+end;
+```
+
+**Use GetTextWidth with alignment:**
+```pascal
+{ Manual centering (alternative to Align_Center parameter) }
 var
   TextWidth, X: Integer;
 begin
-  TextWidth := GetTextWidth(Text, Font);
-  X := (320 - TextWidth) div 2;  { Center horizontally }
-  PrintFontText(X, Y, Text, Font, FrameBuffer);
+  TextWidth := GetTextWidth('Hello', GameFont);
+  X := (320 - TextWidth) div 2;  { Calculate center X }
+  PrintFontText(X, 100, 'Hello', Align_Left, GameFont, BackBuffer);
+
+  { Or simply use Align_Center: }
+  PrintFontText(160, 100, 'Hello', Align_Center, GameFont, BackBuffer);
 end;
 ```
 
@@ -457,7 +505,7 @@ end;
 ### Font Element
 
 ```xml
-<font height="HEIGHT" padding="PADDING">
+<font height="HEIGHT" padding="PADDING" image="IMAGE.PCX" replace-color="COLOR">
   <!-- Character definitions -->
 </font>
 ```
@@ -467,9 +515,19 @@ end;
   - Height of all characters in pixels
   - All characters in font have same height
 
-- `padding` (optional): Integer, 1-255
-  - Right padding of all characters in pixel
-  - All characters in font have same padding
+- `padding` (optional): Integer, 0-255 (default: 0)
+  - Horizontal spacing between characters in pixels
+  - Applied after each character (right padding)
+  - NOT for vertical spacing (use Font.Height for line spacing)
+
+- `image` (required): String
+  - Path to PCX sprite sheet file (relative to XML file)
+  - Example: "FONT.PCX" or "../IMAGES/FONT.PCX"
+
+- `replace-color` (optional): Integer, 0-255 (default: 0)
+  - Color index to replace when using PrintFontTextColored
+  - Set to 0 to disable color replacement
+  - Example: Use 15 (white) as placeholder color in font image
 
 **Child elements:**
 - One or more `<char>` elements
@@ -510,7 +568,7 @@ end;
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<font height="32">
+<font height="32" padding="1" image="FONT.PCX" replace-color="15">
   <!-- Uppercase A-Z -->
   <char code="65" x="0" y="0" width="18" />    <!-- A -->
   <char code="66" x="18" y="0" width="16" />   <!-- B -->
@@ -571,9 +629,10 @@ begin
   { Clear screen }
   ClearFrameBuffer(BackBuffer);
 
-  { Draw text }
-  PrintFontText(10, 10, 'Hello, World!', GameFont, ScreenBuffer);
-  PrintFontText(10, 50, 'Variable Width Font!', GameFont, ScreenBuffer);
+  { Draw text with alignment }
+  PrintFontText(10, 10, 'Hello, World!', Align_Left, GameFont, ScreenBuffer);
+  PrintFontText(160, 50, 'Centered!', Align_Center, GameFont, ScreenBuffer);
+  PrintFontText(310, 90, 'Right', Align_Right, GameFont, ScreenBuffer);
 
   ReadLn;
 
@@ -600,9 +659,9 @@ begin
   LoadFont('FONTS\SMALL.XML', SmallFont);
 
   { Use appropriate font for each element }
-  PrintFontTextCentered(160, 50, 'XICLONE', TitleFont, BackBuffer);
-  PrintFontTextCentered(160, 100, 'Press ENTER to start', NormalFont, BackBuffer);
-  PrintFontText(10, 190, 'v1.0', SmallFont, BackBuffer);
+  PrintFontText(160, 50, 'XICLONE', Align_Center, TitleFont, BackBuffer);
+  PrintFontText(160, 100, 'Press ENTER to start', Align_Center, NormalFont, BackBuffer);
+  PrintFontText(10, 190, 'v1.0', Align_Left, SmallFont, BackBuffer);
 
   { Cleanup all fonts }
   FreeFont(TitleFont);
@@ -650,7 +709,7 @@ begin
       { Line too long - print current line and start new one }
       if Line <> '' then
       begin
-        PrintFontText(X, CursorY, Line, Font, FrameBuffer);
+        PrintFontText(X, CursorY, Line, Align_Left, Font, FrameBuffer);
         CursorY := CursorY + Font.Height + 4;  { Line spacing }
       end;
       Line := Words[i];
@@ -661,7 +720,7 @@ begin
 
   { Print remaining line }
   if Line <> '' then
-    PrintFontText(X, CursorY, Line, Font, FrameBuffer);
+    PrintFontText(X, CursorY, Line, Align_Left, Font, FrameBuffer);
 end;
 ```
 
@@ -700,7 +759,7 @@ end;
 Create `MYFONT.XML`:
 ```xml
 <?xml version="1.0" encoding="US-ASCII"?>
-<font height="32" padding="1">
+<font height="32" padding="1" image="MYFONT.PCX" replace-color="15">
   <char code="65" x="0" y="0" width="18" />  <!-- A -->
   <!-- Add all characters... -->
 </font>
@@ -732,10 +791,10 @@ begin
 
   ClearFrameBuffer(Buffer);
 
-  { Test all printable ASCII }
-  PrintFontText(10, 10, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', Font, Buffer);
-  PrintFontText(10, 50, 'abcdefghijklmnopqrstuvwxyz', Font, Buffer);
-  PrintFontText(10, 90, '0123456789 !?.,:;', Font, Buffer);
+  { Test all printable ASCII with different alignments }
+  PrintFontText(10, 10, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', Align_Left, Font, Buffer);
+  PrintFontText(160, 50, 'abcdefghijklmnopqrstuvwxyz', Align_Center, Font, Buffer);
+  PrintFontText(310, 90, '0123456789 !?.,:;', Align_Right, Font, Buffer);
 
   RenderFrameBuffer(Buffer);
   ReadLn;

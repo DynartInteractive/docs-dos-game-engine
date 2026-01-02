@@ -9,9 +9,7 @@ Source code: https://github.com/goph-R/DOS-Game-Engine
 :caption: Contents
 
 STARTING/index
-CORE/index
-INPUT/index
+BASICS/index
 AUDIO/index
-UTILS/index
 ADVANCED/index
-DEVEL/index
+UTILS/index

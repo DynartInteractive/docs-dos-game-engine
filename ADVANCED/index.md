@@ -8,11 +8,13 @@ High-level systems for building complete DOS games with professional features.
 :maxdepth: 1
 
 DGECORE
+CONFIG
+MINIXML
 RESMAN
 VGAFONT
-VGAPRINT
 VGAUI
 DRECT
 HISCORE
-MD5
+TILEMAP
+TEXTUI
 ```

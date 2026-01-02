@@ -1,4 +1,4 @@
-# Core Graphics & Animation
+# Basics
 
 Core VGA graphics, image formats, sprite animation, and tilemap rendering systems.
 
@@ -8,8 +8,10 @@ Essential modules for 320×200 256-color graphics, double-buffered rendering, an
 :maxdepth: 1
 
 VGA
+VGAPRINT
+KEYBOARD
+MOUSE
 PCX
 BMP
 SPRITE
-TILEMAP
 ```

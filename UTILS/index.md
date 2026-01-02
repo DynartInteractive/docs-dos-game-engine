@@ -1,20 +1,18 @@
 # Utilities & Libraries
 
-Essential utility modules for configuration, data structures, XML parsing, and system services.
+Essential utility modules for data structures and system services.
 
 Supporting libraries for memory management, timing, text UI, and data manipulation.
 
 ```{toctree}
 :maxdepth: 1
 
-CONFIG
-TEXTUI
+LOGGER
+GENTYPES
 RTCTIMER
-XMS
-MINIXML
 STRUTIL
 LINKLIST
 STRMAP
-GENTYPES
-LOGGER
+MD5
+XMS
 ```

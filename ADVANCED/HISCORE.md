@@ -2,12 +2,12 @@
 
 Unit: `HiScore`
 
-MD5-protected high score table with XML storage. Prevents cheating through cryptographic hash verification.
+CRC32-protected high score table with XML storage. Prevents cheating through hash verification.
 
 ## Overview
 
 Manages top 10 high scores with:
-- MD5 hash verification to detect tampering
+- CRC32 hash verification to detect tampering
 - Salted hashing for per-game uniqueness
 - XML storage for human-readable format
 - Automatic sorting by score (descending)
@@ -146,10 +146,10 @@ Check if a score qualifies for top 10 (without modifying table).
 ```pascal
 function ComputeHighScoreHash(const HS: THighScore): String;
 ```
-Compute MD5 hash of all scores (for verification). Normally called internally.
-- Returns 32-character hex string
+Compute CRC32 hash of all scores (for verification). Normally called internally.
+- Returns 8-character hex string
 - Hash includes: salt + all names + all scores
-- Uses incremental MD5 to avoid 255-char String limit
+- Uses incremental CRC32 to avoid 255-char String limit
 
 ## Complete Example
 
@@ -220,18 +220,18 @@ end.
 
 ## XML Format
 
-Scores are stored in XML with MD5 hash attribute:
+Scores are stored in XML with CRC32 hash attribute:
 
 ```xml
 <?xml version="1.0"?>
-<highscores hash="a3f8b9c2d1e4f5a6b7c8d9e0f1a2b3c4">
+<highscores hash="a3f8b9c2">
   <highscore name="Alice" score="15000"/>
   <highscore name="Bob" score="12000"/>
   <highscore name="Charlie" score="10000"/>
 </highscores>
 ```
 
-The `hash` attribute contains an MD5 checksum of:
+The `hash` attribute contains a CRC32 checksum of:
 ```
 Salt + Name[0] + Score[0] + Name[1] + Score[1] + ...
 ```
@@ -243,7 +243,7 @@ If **any** name, score, or the hash itself is modified, LoadHighScore will detec
 ### How It Works
 
 1. **Salted Hash**: Each game uses a unique salt (prevents copying scores between games)
-2. **Incremental MD5**: Hashes all data without String length limits
+2. **Incremental CRC32**: Hashes all data without String length limits
 3. **Verification on Load**: Recomputes hash and compares with stored hash
 4. **Rejection on Mismatch**: Returns empty table if hash doesn't match
 
@@ -356,8 +356,8 @@ end;
 ## Performance
 
 - **Load**: ~10-50ms on 286 @ 12 MHz (depends on file size)
-- **Save**: ~20-100ms on 286 @ 12 MHz (XML write + MD5 hash)
-- **Hash Computation**: ~5-20ms for 10 entries (incremental MD5)
+- **Save**: ~20-100ms on 286 @ 12 MHz (XML write + CRC32 hash)
+- **Hash Computation**: < 1ms for 10 entries (CRC32 table lookup)
 
 **Recommendations:**
 - Load at startup or menu screen (not during gameplay)
@@ -378,7 +378,7 @@ end;
 ❌ Doesn't prevent **file deletion** (backups recommended)
 ❌ Doesn't encrypt data (hash verification only)
 
-MD5 is cryptographically broken for adversarial use, but **perfect** for this use case (game high scores in 1994-era DOS environment).
+CRC32 is not cryptographic, but **perfect** for this use case (detecting casual tampering of game high scores in a DOS environment).
 
 ## Troubleshooting
 
@@ -418,12 +418,12 @@ See **XICLONE\GAMESCR.PAS** for a real-world implementation in the XICLONE game.
 
 ## Dependencies
 
-- **MD5.PAS** - MD5 hashing (incremental API)
+- **CRC32.PAS** - CRC-32 hashing (incremental API)
 - **MINIXML.PAS** - XML loading/saving
 - **STRUTIL.PAS** - IntToStr, StrToInt
 
 ## See Also
 
-- [MD5.PAS](MD5.md) - MD5 cryptographic hash
+- [CRC32.PAS](../UTILS/CRC32.md) - CRC-32 hash (ISO 3309)
 - [MINIXML.PAS](../UTILS/MINIXML.md) - XML parser/writer
 - [STRUTIL.PAS](../UTILS/STRUTIL.md) - String utilities

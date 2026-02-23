@@ -6,7 +6,7 @@ The DOS Game Engine can load `.tmx` files (Tiled Map Editor XML format) with bas
 - **TMXLOAD.PAS** - Loading TMX files, parsing XML, managing tilesets and layers
 - **TMXDRAW.PAS** - Rendering tilemap layers to framebuffers
 
-## 🎯 Layer Merging System
+## Layer Merging System
 
 The loader can read **multiple `<layer>` tags** from a TMX file, but **merges them into exactly 2 layers** in the final `TTileMap` structure:
 
@@ -20,7 +20,7 @@ The loader can read **multiple `<layer>` tags** from a TMX file, but **merges th
 
 This allows complex multi-layer TMX files created in Tiled to be simplified for efficient DOS rendering. 
 
-## 🧱 Structures
+## Structures
 
 ```pascal
 type TTileSet = record
@@ -59,7 +59,7 @@ end;
 
 Every `/` character in the paths in the TMX files should be replaced with `\` because of the DOS paths.
 
-## 🔥 Functions
+## Functions
 
 ```pascal
 function GetLoadTileMapError: String
@@ -119,7 +119,7 @@ procedure LoadTileMapLayer(const XMLNode: PXMLNode; var TileMap: TTileMap; const
 
 Processes a `<layer>` tag, only with `<data encoding="csv">` tags (Base64 and compressed formats are unsupported).
 
-## 🎨 TMXDRAW.PAS - Rendering Functions
+## TMXDRAW.PAS - Rendering Functions
 
 ```pascal
 procedure DrawTileMapLayer(
@@ -171,7 +171,7 @@ if IsBlockType(Map, PlayerTileX, PlayerTileY, 1) then
   PlayerX := OldPlayerX;  { Revert movement }
 ```
 
-## 📝 Usage Example
+## Usage Example
 
 ```pascal
 program TileMapDemo;
@@ -213,7 +213,7 @@ begin
 end.
 ```
 
-## 🗺️ Tile ID Mapping
+## Tile ID Mapping
 
 Each tile ID in the layer data maps to a specific position in the tileset image:
 
@@ -235,7 +235,7 @@ SourceY = Row * TileSet.TileHeight
   - `Col = 14 mod 8 = 6`
   - Source position: `(96, 16)` in tileset image
 
-## 🎨 TMX Format Support
+## TMX Format Support
 
 **Supported features:**
 - CSV-encoded tile data (`<data encoding="csv">`)
@@ -256,7 +256,7 @@ SourceY = Row * TileSet.TileHeight
 
 **TMX format info:** https://doc.mapeditor.org/en/stable/reference/tmx-map-format/
 
-## 🔗 External Tileset Support (TSX Files)
+## External Tileset Support (TSX Files)
 
 **Feature:** Tilesets can be defined in external `.tsx` files and referenced from the TMX file.
 
@@ -311,7 +311,7 @@ When loading a TMX file, the loader first processes all `<tileset>` tags in the 
 - Smaller TMX files
 - Easier tileset management and updates
 
-## 🧱 Special Tilesets: Blocks and Objects
+## Special Tilesets: Blocks and Objects
 
 The engine recognizes two special tileset types by name:
 
@@ -363,7 +363,7 @@ The engine recognizes two special tileset types by name:
 <tileset firstgid="300" source="OBJECTS.TSX"/>
 ```
 
-## 🧱 Blocks Layer (Collision Detection)
+## Blocks Layer (Collision Detection)
 
 **Feature:** Tile-based collision detection using custom layer properties.
 
@@ -423,7 +423,7 @@ See TMXTEST.PAS for an example of rendering block overlay with text labels (pres
 
 **Status:** ✅ Fully implemented and working.
 
-## 📐 Coordinate Systems
+## Coordinate Systems
 
 **Tile coordinates:** Map positions measured in tiles (0 to Width-1, 0 to Height-1)
 
@@ -435,7 +435,7 @@ PixelX := TileX * TileSet.TileWidth;
 PixelY := TileY * TileSet.TileHeight;
 ```
 
-## 💾 Memory Management
+## Memory Management
 
 **Memory usage per map:**
 ```
@@ -452,7 +452,7 @@ Bytes = Width × Height × 2 layers × 2 bytes per tile
 - Always call `FreeTileMap` before exit
 - Free unused tilesets with `FreeTileSet`
 
-## ⚡ Performance Considerations
+## Performance Considerations
 
 **Rendering speed:**
 - Drawing a full 20×12 screen of 16×16 tiles = 240 tile blits per frame
@@ -465,7 +465,7 @@ Bytes = Width × Height × 2 layers × 2 bytes per tile
 - Cache tileset row offsets to avoid multiplication in inner loops
 - Consider pre-rendering static backgrounds to a single buffer
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 **"No <map> tag found"**
 - TMX file is corrupted or not valid XML
@@ -498,7 +498,7 @@ Bytes = Width × Height × 2 layers × 2 bytes per tile
 - Check `FirstGid` matches tileset configuration
 - Ensure tile IDs in map data are valid for the tileset
 
-## 📄 Example TMX File
+## Example TMX File
 
 Minimal working TMX file demonstrating 2-layer merging:
 

@@ -19,13 +19,13 @@ begin
 
   { Render to framebuffer }
   FrameBuffer := CreateFrameBuffer;
-  PutImage(TestImage, 0, 0, False, FrameBuffer);
+  PutImage(0, 0, @TestImage, FrameBuffer);
   RenderFrameBuffer(FrameBuffer);
   ReadLn;
 
-  DoneVGA;
   FreeFrameBuffer(FrameBuffer);
   FreeImage(TestImage);
+  DoneVGA;
 end.
 ```
 
@@ -37,17 +37,19 @@ var
   Music: HSC_Obj;
 
 begin
-  Music.Init(0);  { Auto-detect Adlib at port 388h }
+  InitKeyboard;
+  Music.Init(0);  { Auto-detect AdLib at port 388h }
   if Music.LoadFile('DATA\FANTASY.HSC') then
   begin
-    Music.Start;
+    Music.Start; { Music is playing at IRQ 0 }
     while not IsKeyDown(Key_Escape) do
     begin
       { ... your game loop ... }
-      Music.Poll; { Music needs polling }
+      ClearKeyPressed;
     end;
     Music.Done;  { CRITICAL: Unhook interrupt! }
   end;
+  DoneKeyboard;
 end.
 ```
 
@@ -61,7 +63,7 @@ var
 
 begin
   { Initialize Sound Blaster }
-  ResetDSP($22, 5, 1, 0);  { Port $220, IRQ 5, DMA 1 }
+  ResetDSP(2, 5, 1, 0);  { Port $220, IRQ 5, DMA 1 }
 
   { Initialize sound bank }
   Bank.Init;
@@ -92,15 +94,15 @@ begin
   InitKeyboard;
   InitRTC(1024);  { 1024 Hz timer }
 
-  CurrentTime := RTC_Ticks / 1024.0;
+  LastTime := GetTimeSeconds;
   Running := True;
 
   while Running do
   begin
     { Calculate delta time }
-    LastTime := CurrentTime;
-    CurrentTime := RTC_Ticks / 1024.0;
+    CurrentTime := GetTimeSeconds;
     DeltaTime := CurrentTime - LastTime;
+    LastTime := CurrentTime;
 
     { Frame-rate independent movement }
     if IsKeyDown(Key_Right) then

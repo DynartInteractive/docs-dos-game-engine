@@ -350,11 +350,11 @@ end;
 
 ---
 
-## 📦 Memory Usage
+## Memory Usage
 
 This section describes the exact RAM footprint of the XML parser.
 
-### 🧱 Base Memory per Node
+### Base Memory per Node
 
 A `TXMLNode` record contains:
 
@@ -375,7 +375,7 @@ Record total:   ~95–110 bytes per node
 
 Attribute lookup is a simple and fast linear scan (max 8 attributes).
 
-### 🏷️ Per Attribute Cost (Dynamic Allocation)
+### Per Attribute Cost (Dynamic Allocation)
 
 Each attribute uses variable-sized memory:
 
@@ -393,7 +393,7 @@ Example:
 * `x="123"` → ~7 bytes
 * `name="monsterslayer"` → ~16 bytes
 
-### 📝 Text Content Memory
+### Text Content Memory
 
 Text is stored in a dynamically growing buffer:
 
@@ -410,7 +410,7 @@ TextLen:          actual used bytes
 
 Nodes without text do **not** allocate any text memory.
 
-### 📉 Memory Usage Example (FONT-SM.XML)
+### Memory Usage Example (FONT-SM.XML)
 
 For a ~5.5 KB XML containing:
 

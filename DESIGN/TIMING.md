@@ -2,7 +2,7 @@
 
 This document explains timing strategies for frame-rate independent movement and sprite animations in the DOS Game Engine.
 
-## ⚡ Performance Considerations
+## Performance Considerations
 
 ### CPU Performance (286/386 without FPU)
 
@@ -16,7 +16,7 @@ This document explains timing strategies for frame-rate independent movement and
 
 For time-critical game logic (movement, physics, animations), **always use integer types** (Word, Integer, LongInt) instead of Real.
 
-## 🕐 Time Units Comparison
+## Time Units Comparison
 
 ### Microseconds (LongInt)
 - **Precision**: 1 microsecond (0.000001 seconds)
@@ -38,7 +38,7 @@ For time-critical game logic (movement, physics, animations), **always use integ
 - **Range**: 2,147,483,647 ticks = varies by frequency
 - **Use case**: Good for internal timing, but convert to milliseconds for calculations
 
-## 📊 RTC_Ticks Explained
+## RTC_Ticks Explained
 
 The `RTC_Ticks` variable in **RTCTIMER.PAS** is a **dimensionless tick counter**:
 
@@ -58,7 +58,7 @@ The RTC base frequency is **32768 Hz**, divided by powers of 2:
 Actual frequency = 32768 >> (RateSelect - 1)
 ```
 
-## 🎯 Recommended Approach: Milliseconds
+## Recommended Approach: Milliseconds
 
 Use **LongInt with milliseconds** for frame-rate independent game logic.
 
@@ -92,7 +92,7 @@ begin
 end;
 ```
 
-## 🏃 Frame-Rate Independent Movement
+## Frame-Rate Independent Movement
 
 Store velocities as **pixels per second × 1000** to avoid Real math.
 
@@ -142,7 +142,7 @@ Sprite.X := Sprite.X + ((Sprite.VelocityX * DeltaTimeMS) div 1000) div 256;
 
 **Even better: Fixed-point math (8.8 or 16.16 format)** - see FIXED-POINT.md
 
-## 🎬 Sprite Animation
+## Sprite Animation
 
 ### Method 1: Delta-Time Based (Frame-Rate Independent)
 
@@ -234,7 +234,7 @@ Sprite.CurrentFrame := 0;
 - Less precise timing
 - May look jerky if frame rate varies
 
-## 🎯 Recommendations
+## Recommendations
 
 ### For Movement and Physics:
 ✅ **Use LongInt milliseconds with delta time**
@@ -255,7 +255,7 @@ Sprite.CurrentFrame := 0;
 - More predictable behavior
 - Better for cutscenes or important animations
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 ### 1. Delta Time Too Large
 If delta time exceeds 1000ms (1 second), your game logic may break:
@@ -288,14 +288,14 @@ if Timer >= Duration then
   Timer := Timer - Duration;
 ```
 
-## 📚 Related Documentation
+## Related Documentation
 
 - **RTCTIMER.PAS**: High-resolution RTC timer unit (IRQ8)
 - **SPRTEST.PAS**: Example of delta-time movement and FPS calculation
 - **XiClone**: Full game implementation with delta-time physics
 - **MATHUTIL.PAS**: Fixed-point math utilities (16.16 format)
 
-## 🔧 Future Improvements
+## Future Improvements
 
 Consider creating a **DELTATIME.PAS** helper unit:
 ```pascal

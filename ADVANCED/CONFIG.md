@@ -8,7 +8,7 @@ Extensible configuration system for loading/saving CONFIG.INI settings. Uses obj
 
 **TConfig** is an extensible object (not a fixed record) that can be inherited to add game-specific configuration fields. The base TConfig handles core engine settings (sound card, mouse), while derived configs can add custom settings (difficulty, volume, etc.).
 
-**Pattern:** Similar to how games extend `TGame` (see DGECORE.md), games can extend `TConfig` to add custom configuration fields and override virtual methods.
+**Pattern:** Similar to how games extend `TBaseGame` (see BASEGAME.md), games can extend `TConfig` to add custom configuration fields and override virtual methods.
 
 ## Types
 
@@ -344,9 +344,9 @@ begin
 end;
 ```
 
-## Integration with DGECORE
+## Integration with BASEGAME
 
-Pass config pointer to TGame.Init:
+Pass config pointer to TBaseGame.Init:
 
 ```pascal
 var
@@ -402,8 +402,8 @@ PlayerName=Alice
 ## Notes
 
 - Created by SETUP utility
-- DGECORE auto-loads via `Config^.Load` in `TGame.Start`
+- BASEGAME auto-loads via `Config^.Load` in `TBaseGame.Start`
 - Default values: SoundCard=None, SBPort=2 ($220), SBIRQ=5, SBDMA=1, UseMouse=0
 - **Virtual methods** require `{$F+}` directive (far calls)
 - **Extensible design** allows games to add custom settings without modifying base unit
-- **Object ownership**: Caller owns TConfig, TGame only holds reference (PConfig)
+- **Object ownership**: Caller owns TConfig, TBaseGame only holds reference (PConfig)

@@ -1,28 +1,28 @@
 # Game Engine Core Architecture
 
-Units: `DGECore` `DGEScr`
+Units: `BaseGame` `Screen`
 
 Central game loop framework with screen management, resource loading, and subsystem initialization.
 
 ## Architecture Overview
 
-**DGECORE** and **DGESCR** provide a reusable framework with no game-specific dependencies. Games extend `TGame` to create their own game object with game-specific resources and state.
+**BASEGAME** and **SCREEN** provide a reusable framework with no game-specific dependencies. Games extend `TBaseGame` to create their own game object with game-specific resources and state.
 
-### Framework (DGECORE.PAS, DGESCR.PAS)
-- **DGECORE.PAS**: Defines `TGame` base object (reusable framework)
-- **DGESCR.PAS**: Defines `TScreen` base object (screen/state pattern)
+### Framework (BASEGAME.PAS, SCREEN.PAS)
+- **BASEGAME.PAS**: Defines `TBaseGame` base object (reusable framework)
+- **SCREEN.PAS**: Defines `TScreen` base object (screen/state pattern)
 
 ### Game-Specific Implementation
-Games extend `TGame` to add:
+Games extend `TBaseGame` to add:
 - Game-specific resources (sprites, fonts, etc.)
 - Game-specific state (UI systems, dialog state, etc.)
 - Game-specific initialization
 
-**Example:** XiClone extends `TGame` as `TXiCloneGame` in `XIGAME.PAS`
+**Example:** XiClone extends `TBaseGame` as `TXiCloneGame` in `XIGAME.PAS`
 
-## TGame Object
+## TBaseGame Object
 
-**Unit:** `DGECore`
+**Unit:** `BaseGame`
 
 Main game object that manages the entire application lifecycle.
 
@@ -68,7 +68,7 @@ procedure Run;
 Main game loop - initializes VGA, calls `PostInit` on all screens, then runs the main loop:
 
 ```pascal
-procedure TGame.Run;
+procedure TBaseGame.Run;
 begin
   InitVGA;  { VGA initialized here, not in Start }
   VGAInitialized := True;
@@ -225,8 +225,8 @@ Default implementation:
 
 ```pascal
 type
-  PGame = ^TGame;
-  TGame = object
+  PBaseGame = ^TBaseGame;
+  TBaseGame = object
     { Configuration & Resources }
     Config: PConfig;                 { Game configuration pointer (caller owns) }
     ResFilePath: String;             { Path to resources XML }
@@ -259,7 +259,7 @@ type
 
 ## TScreen Object
 
-**Unit:** `DGEScr`
+**Unit:** `Screen`
 
 Abstract screen/state object for menu screens, gameplay, etc.
 
@@ -322,9 +322,9 @@ type
   end;
 ```
 
-## Extending TGame for Your Game
+## Extending TBaseGame for Your Game
 
-Create a game-specific object that extends `TGame`:
+Create a game-specific object that extends `TBaseGame`:
 
 ```pascal
 unit MyGame;
@@ -332,10 +332,10 @@ unit MyGame;
 interface
 
 uses
-  VGA, VGAFont, DGECore, DGEScr, Config;
+  VGA, VGAFont, BaseGame, Screen, Config;
 
 type
-  TMyGame = object(TGame)
+  TMyGame = object(TBaseGame)
     { Game-specific resources }
     PlayerSprite: PImage;
     TitleFont: PFont;
@@ -504,8 +504,8 @@ end.
 
 ## Notes
 
-- **No global in framework**: `DGECORE.PAS` does not declare a global `Game` variable. Games provide their own by extending `TGame`.
-- **Extend TGame**: Create a game-specific object (e.g., `TMyGame = object(TGame)`) with game resources and state.
+- **No global in framework**: `BASEGAME.PAS` does not declare a global `Game` variable. Games provide their own by extending `TBaseGame`.
+- **Extend TBaseGame**: Create a game-specific object (e.g., `TMyGame = object(TBaseGame)`) with game resources and state.
 - **Override Start**: Load game-specific resources in your overridden `Start` method (call inherited first).
 - **Virtual methods**: All `TScreen` methods are virtual. Override `PostInit`, `Update`, `Show`, `Hide` as needed.
 - **VGA initialization timing**: VGA is initialized in `Run`, not `Start`. This allows screens to be created and registered before VGA mode is set.

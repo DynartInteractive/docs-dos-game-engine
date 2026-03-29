@@ -7,7 +7,7 @@ High-level systems for building complete DOS games with professional features.
 ```{toctree}
 :maxdepth: 1
 
-DGECORE
+BASEGAME
 CONFIG
 MINIXML
 RESMAN

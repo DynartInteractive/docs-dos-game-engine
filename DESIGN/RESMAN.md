@@ -49,6 +49,10 @@ Centralized resource management system for loading and accessing game assets fro
 - `image` supports optional `use-palette` attribute (boolean flag)
 - `sprite` requires `image` (image resource name) and `duration` (seconds)
 - `sprite` frames require `x`, `y`, `width`, `height` attributes
+- `sprite-xml` requires `path` attribute pointing to an external SPX file (no `name` needed)
+
+**External Sprite XML (SPX) Files:**
+Sprites can also be defined in external `.SPX` files referenced via `<sprite-xml path="FILE.SPX" />`. SPX files support additional features: default `width`/`height` on `<sprite>`, per-frame `offset-x`/`offset-y`, and per-frame `duration`. Image paths in SPX files are relative to the SPX file location. See [SPX Format](../ADVANCED/SPX.md) for full format documentation.
 
 **Note:** Level resources (`<level>`) are not yet implemented and will be metadata-based requiring additional design work.
 

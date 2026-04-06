@@ -8,13 +8,23 @@ Frame-rate independent sprite animation system.
 
 ```pascal
 type
+  TSpriteFrame = record
+    Rect: TRectangle;    { Source rect in spritesheet (X, Y, Width, Height) }
+    OffsetX: Integer;     { Drawing offset X (default 0) }
+    OffsetY: Integer;     { Drawing offset Y (default 0) }
+    Duration: Real;       { Per-frame duration in seconds; 0 = use uniform }
+  end;
+  PSpriteFrame = ^TSpriteFrame;
+
   TSprite = record
     Image: PImage;
-    Frames: array[0..63] of TRectangle;
+    Frames: array[0..63] of TSpriteFrame;
     FrameCount: Byte;
     Width, Height: Word;
-    Duration: Real;      { Total duration in seconds }
-    PlayType: Byte;      { Forward/PingPong/Once }
+    Duration: Real;            { Total duration in seconds (uniform timing) }
+    PlayType: Byte;            { Forward/PingPong/Once }
+    HasFrameDurations: Boolean; { True if per-frame durations are set }
+    TotalDuration: Real;        { Sum of frame durations (variable mode) }
   end;
   PSprite = ^TSprite;
 
@@ -90,10 +100,10 @@ begin
   { Define frames (horizontal strip) }
   for i := 0 to 7 do
   begin
-    PlayerRun.Frames[i].X := i * 32;
-    PlayerRun.Frames[i].Y := 0;
-    PlayerRun.Frames[i].Width := 32;
-    PlayerRun.Frames[i].Height := 32;
+    PlayerRun.Frames[i].Rect.X := i * 32;
+    PlayerRun.Frames[i].Rect.Y := 0;
+    PlayerRun.Frames[i].Rect.Width := 32;
+    PlayerRun.Frames[i].Rect.Height := 32;
   end;
 
   { Create instance }
@@ -172,10 +182,10 @@ end;
 { 5 frames, 32×32 each }
 for i := 0 to 4 do
 begin
-  Sprite.Frames[i].X := i * 32;
-  Sprite.Frames[i].Y := 0;
-  Sprite.Frames[i].Width := 32;
-  Sprite.Frames[i].Height := 32;
+  Sprite.Frames[i].Rect.X := i * 32;
+  Sprite.Frames[i].Rect.Y := 0;
+  Sprite.Frames[i].Rect.Width := 32;
+  Sprite.Frames[i].Rect.Height := 32;
 end;
 ```
 
@@ -184,10 +194,10 @@ end;
 { 8 frames }
 for i := 0 to 7 do
 begin
-  Sprite.Frames[i].X := (i mod 4) * 32;
-  Sprite.Frames[i].Y := (i div 4) * 32;
-  Sprite.Frames[i].Width := 32;
-  Sprite.Frames[i].Height := 32;
+  Sprite.Frames[i].Rect.X := (i mod 4) * 32;
+  Sprite.Frames[i].Rect.Y := (i div 4) * 32;
+  Sprite.Frames[i].Rect.Width := 32;
+  Sprite.Frames[i].Rect.Height := 32;
 end;
 ```
 

@@ -39,6 +39,20 @@ type
   PSpriteInstance = ^TSpriteInstance;
 ```
 
+```pascal
+const MaxSPXSprites = 32;
+
+type
+  TSpriteSheet = record
+    Image: TImage;                                    { Sprite sheet image }
+    Palette: TPalette;                                { Palette from PCX }
+    Sprites: array[0..MaxSPXSprites - 1] of TSprite;  { Sprite definitions }
+    Names: array[0..MaxSPXSprites - 1] of String[20]; { Sprite names }
+    Count: Byte;                                      { Number of sprites }
+  end;
+  PSpriteSheet = ^TSpriteSheet;
+```
+
 ## Constants
 
 ```pascal
@@ -47,9 +61,29 @@ const
   SpritePlayType_PingPong = 1;  { Bounce: 0→1→2→3→2→1→0→... }
   SpritePlayType_Once     = 2;  { Play once: 0→1→2→3 [STOP] }
   MaxSpriteFrames = 64;
+  MaxSPXSprites   = 32;
 ```
 
 ## Functions
+
+### SPX Loading
+
+```pascal
+function LoadSPX(const Filename: String; var Sheet: TSpriteSheet): Boolean;
+function GetSPXSprite(var Sheet: TSpriteSheet; const Name: String): PSprite;
+procedure FreeSPX(var Sheet: TSpriteSheet);
+function GetLoadSPXError: String;
+```
+
+**LoadSPX** loads an SPX file (sprite sheet image + all sprite definitions) into a `TSpriteSheet`. Returns `True` on success. The SPX file's `<image>` path is relative to the SPX file location.
+
+**GetSPXSprite** returns a `PSprite` by name from a loaded sheet, or `nil` if not found.
+
+**FreeSPX** frees the image data and resets the sheet.
+
+**GetLoadSPXError** returns the error message from the last failed `LoadSPX` call.
+
+### Animation
 
 ```pascal
 procedure UpdateSprite(var SpriteInstance: TSpriteInstance; DeltaTime: Real);
@@ -135,6 +169,65 @@ begin
   FreeImage(SpriteSheet);
   DoneRTC;
   DoneVGA;
+end.
+```
+
+## Loading from SPX
+
+The simplest way to set up sprites is via an SPX file (see [SPX Format](../ADVANCED/SPX.md)):
+
+```pascal
+uses VGA, Sprite, RTCTimer;
+
+var
+  Sheet: TSpriteSheet;
+  SprIdle, SprRun: PSprite;
+  Player: TSpriteInstance;
+  BackBuffer: PFrameBuffer;
+  LastTime, CurrentTime, DeltaTime: Real;
+
+begin
+  { Load SPX (image + all sprites in one call) }
+  if not LoadSPX('DATA\PLAYER.SPX', Sheet) then
+  begin
+    WriteLn('ERROR: ', GetLoadSPXError);
+    Halt(1);
+  end;
+
+  { Get sprite definitions by name }
+  SprIdle := GetSPXSprite(Sheet, 'idle');
+  SprRun := GetSPXSprite(Sheet, 'run');
+
+  { Create instance }
+  Player.Sprite := SprIdle;
+  Player.X := 144;
+  Player.Y := 84;
+  Player.CurrentTime := 0.0;
+  Player.FlipX := False;
+  Player.Hidden := False;
+
+  InitVGA;
+  SetPalette(Sheet.Palette);
+  InitRTC(1024);
+  BackBuffer := CreateFrameBuffer;
+
+  LastTime := GetTimeSeconds;
+  while Running do
+  begin
+    CurrentTime := GetTimeSeconds;
+    DeltaTime := CurrentTime - LastTime;
+    LastTime := CurrentTime;
+
+    UpdateSprite(Player, DeltaTime);
+    ClearFrameBuffer(BackBuffer);
+    DrawSprite(Player, BackBuffer);
+    RenderFrameBuffer(BackBuffer);
+  end;
+
+  FreeFrameBuffer(BackBuffer);
+  DoneRTC;
+  DoneVGA;
+  FreeSPX(Sheet);
 end.
 ```
 
@@ -266,4 +359,6 @@ end;
 - Supports horizontal/vertical flipping
 - Color 0 = transparent when drawing
 - Use with RTCTIMER for accurate delta-time
-- See RESMAN.PAS for loading sprites from XML
+- Use `LoadSPX` for standalone sprite loading from SPX files
+- See [SPX Format](../ADVANCED/SPX.md) for SPX file format details
+- See RESMAN.PAS for integrated resource management with `<sprite-xml>` tags

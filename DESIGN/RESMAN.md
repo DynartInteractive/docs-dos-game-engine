@@ -1,5 +1,16 @@
 # RESMAN.PAS - Resource Manager Design
 
+> ⚠️ **Historical design note — the implementation has moved past this document.**
+> The shipped `UNITS/RESMAN.PAS` differs from the design sketched here. Notably:
+> palette resources (`<palette>`, `ResType_Palette`, `GetPalette`) are **implemented**
+> (this doc lists them as future); images bind a palette by name via a `palette="…"`
+> attribute and a `TImageData.PaletteName` field (the old `use-palette` boolean is gone);
+> sprite frames are copied out of the XML tree during parsing (no dangling XML pointers);
+> required-attribute validation and `PSoundData` cleanup are in place. `<level>` /
+> TMX-as-a-resource is **not** wired into RESMAN — maps are loaded via `TMXLOAD` directly.
+> **For the current, accurate API see [ADVANCED/RESMAN.md](../ADVANCED/RESMAN.md) and the
+> shipped unit.** The issues raised in `RESMAN-review.md` are all resolved in the code.
+
 Centralized resource management system for loading and accessing game assets from XML definition files.
 
 ## Overview

@@ -47,8 +47,11 @@ type
     { Manual resource management }
     function LoadResource(const Name: String): Boolean;
     procedure UnloadResource(const Name: String);  { Free individual resource }
+    procedure PreloadAll;                           { Force-load every resource now }
 
     procedure Done;
+
+    LastError: String;  { Set when a load/lookup fails }
   end;
 ```
 
@@ -99,6 +102,22 @@ begin
   ResMgr.Done;  { Frees all resources }
 end.
 ```
+
+## Preloading
+
+With lazy loading (`Init(True)`), resources load on first `GetXXX` access. To force
+everything in the manifest to load up front — e.g. behind a loading screen so there
+are no hitches during play — call `PreloadAll`:
+
+```pascal
+ResMgr.Init(True);            { lazy by default }
+ResMgr.LoadFromXML('DATA\RES.XML');
+ShowLoadingScreen;
+ResMgr.PreloadAll;            { load every resource now }
+```
+
+`Init(False)` (eager) preloads during `LoadFromXML` instead. Use lazy + `PreloadAll`
+when you want to control *when* the load cost is paid.
 
 ## Palettes
 

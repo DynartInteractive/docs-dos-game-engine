@@ -1,3 +1,13 @@
+> ✅ **Resolved — historical review.** This reviewed an earlier *design* of RESMAN
+> (`RESMAN.md`), not the shipped code. Every concrete issue below is fixed in
+> `UNITS/RESMAN.PAS`: the sprite XML use-after-free (frames are now copied into
+> engine-owned `TSpriteData` during parsing), the uninitialized `UsePalette` + typo
+> (replaced by a named `PaletteName` palette reference), missing `path` validation
+> (now guarded on every resource type), and the leaked `PSoundData` wrapper (now
+> disposed in `Done`). Kept for historical context. Current API: [ADVANCED/RESMAN.md](../ADVANCED/RESMAN.md).
+
+---
+
 You’ve got a really solid, very “TP7-ish” design here — nice separation of concerns and it fits the DOS constraints well. I’ll go through it in layers: first the big positives, then concrete problems/bugs, then some design tweaks you might want to consider. ([GitHub][1])
 
 ---

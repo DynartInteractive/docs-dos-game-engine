@@ -312,4 +312,5 @@ VGA_B := PCX_B shr 2;
 ## See Also
 
 - **[VGA.md](VGA.md)** - Graphics API reference
+- **[Palette Workflow](PALETTE.md)** - Splitting the palette between UI and artwork
 - **[Graphics & Input](index.md)** - All graphics and input modules

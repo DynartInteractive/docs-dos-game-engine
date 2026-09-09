@@ -12,6 +12,10 @@ Use [Pix8](https://pix8.app) our own 256-color pixel art editor (browser + Windo
 Pix8 also exports [SPX](../ENGINE/SPX.md) sprite sheets directly, which is the fastest way
 to get animated sprites into the engine. See [Sprite Sheets](#sprite-sheets) below.
 
+Showing a full-screen image alongside a HUD means sharing one 256-color palette between
+them. See [Palette Workflow](../BASICS/PALETTE.md) for how to split it and author the
+result in Pix8.
+
 Alternatives:
 - [GrafX2](http://grafx2.chez.com/) — the classic DOS-style pixel art editor (Windows/Linux/Mac).
   Comparable feature set to Pix8, and it still has a few things Pix8 lacks (dithering, gradient fill).

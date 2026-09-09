@@ -180,6 +180,10 @@ end;
 - **0-223** (224 colors): Game graphics/sprites
 - **224-255** (32 colors): UI/HUD/text (stays consistent across levels)
 
+The reverse split works too — 0-31 for UI, 32-255 for a full-screen image. See
+[Palette Workflow](PALETTE.md) for the end-to-end pipeline, including how to author the
+split in Pix8 and the 6-bit `.PAL` format `LoadPalette` expects.
+
 ## Sprite Sheets
 
 ```pascal

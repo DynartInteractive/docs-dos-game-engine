@@ -9,6 +9,7 @@ works standalone if you are writing a demo or driving the hardware directly.
 :maxdepth: 1
 
 VGA
+PALETTE
 VGAPRINT
 SPRITE
 TILEMAP

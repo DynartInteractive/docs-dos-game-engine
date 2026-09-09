@@ -10,6 +10,11 @@ The **HSC file format** stores music sequences composed for **AdLib (OPL2)** syn
 It contains 128 instruments, a pattern order list, and pattern data (note and effect pairs).
 Each HSC file represents a complete song that can be played by a 9-channel OPL2 synthesizer.
 
+To write `.HSC` files, use [HSC Tracker JS](https://hsc-tracker-js.dynart.net), our own
+browser-based tracker and OPL2 player
+([source](https://github.com/DynartInteractive/HscTrackerJs)). It reads and writes this format
+natively — no conversion — and its player implements the same structures described below.
+
 | Section         | Description                                    | Size              |
 | --------------- | ---------------------------------------------- | ----------------- |
 | Instrument bank | 128 instruments × 12 bytes                     | 1536 bytes        |
@@ -297,3 +302,10 @@ for each row in 64:
 
 Specification derived from analysis of AdPlug’s `hsc.h` and `hsc.cpp` (licensed open source)
 but rewritten as an **independent, formal description** for implementers of HSC readers/writers.
+
+Tools:
+
+- **HSC Tracker JS** (recommended, composes and saves `.HSC` directly):
+  https://hsc-tracker-js.dynart.net — source: https://github.com/DynartInteractive/HscTrackerJs
+- **Adlib Tracker II**: https://adlibtracker.net/ (A2M native, needs a conversion step to HSC)
+- **HSC-Tracker** (the original, DOS only): https://demozoo.org/productions/293837/

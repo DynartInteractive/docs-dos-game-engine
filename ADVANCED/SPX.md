@@ -15,6 +15,22 @@ SPX files (`.SPX`) are XML files that define sprite sheet images and their anima
 
 No `name` attribute is needed. The SPX file itself contains named image and sprite resources that become available through the Resource Manager.
 
+## Creating SPX Files
+
+[Pix8](https://pix8.app) exports this format directly — it is the quickest way to produce a
+sprite sheet and its animation definitions together. Pix8 is our own 256-color indexed pixel
+art editor and runs in the browser or as a Windows desktop app.
+
+1. Draw the animation frames on the frame timeline, grouping them with tags
+   (one tag per animation, e.g. `player_idle`, `player_run`)
+2. **File → Export as...** (Ctrl+Shift+E) → **SPX**
+3. The result is a ZIP containing the `.SPX` file plus the packed `.PCX` sprite sheet(s).
+   Sheets are bin-packed to stay within the 320×200 VGA limit.
+4. Unpack it into your `DATA\` directory and reference the `.SPX` from `resources.xml`
+
+Still (non-animated) images can be exported as SPX too. SPX files are plain XML, so they can
+also be written or tweaked by hand — the format is documented below.
+
 ## File Format
 
 Root element: `<sprite-xml>`

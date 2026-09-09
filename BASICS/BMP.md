@@ -104,6 +104,15 @@ BMPPalette[i].rgbBlue := Pal[i].B shl 2;
 
 ## Creating BMP Files
 
+### Pix8 (Recommended)
+
+[Pix8](https://pix8.app) is our own 256-color indexed pixel art editor (browser + Windows
+desktop app). Images are 8-bit indexed by default, so no mode conversion is needed.
+
+1. File → New...
+2. Draw your pixel art (up to 256 colors)
+3. File → Export as... (Ctrl+Shift+E) → BMP
+
 ### Windows Paint
 1. Image → Resize → 256 colors
 2. Save As → 24-bit BMP (auto-converts to 8-bit)
@@ -125,12 +134,12 @@ BMPPalette[i].rgbBlue := Pal[i].B shl 2;
 | **Compression** | None             | RLE              |
 | **Scanlines**   | Bottom-up        | Top-down         |
 | **Palette**     | BGRA (0-255)     | RGB (0-255)      |
-| **Tools**       | Paint, Photoshop | Aseprite, GIMP   |
+| **Tools**       | Pix8, Paint, Photoshop | Pix8, GrafX2, Aseprite |
 | **File Size**   | Larger           | Smaller          |
 
 ## Notes
 
 - Max image size: 320×204 (65520 bytes) due to TImage limits
 - Handles scanline padding (4-byte alignment) automatically
-- Compatible with Windows Paint, Photoshop, GIMP
+- Compatible with Pix8, Windows Paint, Photoshop, GIMP
 - For RLE compression, use PCX format instead

@@ -43,9 +43,19 @@ end;
    ExitProc := @MyExitProc;
    ```
 
+## Creating HSC Files
+
+Compose with [HSC Tracker JS](https://hsc-tracker-js.dynart.net), our own browser-based HSC
+tracker ([source](https://github.com/DynartInteractive/HscTrackerJs)). It saves `.HSC`
+natively (Ctrl+S) and previews through an OPL2 emulator at the same 18.2 Hz tick rate this
+player uses, so playback matches the game.
+
+[Adlib Tracker II](https://adlibtracker.net/) and the original DOS
+[HSC-Tracker](https://demozoo.org/productions/293837/) also work.
+
 ## File Format
 
-See DOCS\HSC.md for HSC file format specification.
+See [HSC.md](HSC.md) for HSC file format specification.
 
 ## Compatibility
 

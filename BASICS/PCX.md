@@ -2,7 +2,7 @@
 
 Unit: `PCX`
 
-**PCX** (ZSoft Paintbrush) is a classic DOS image format (1985) widely used in retro games like DOOM, Duke Nukem, and Commander Keen. It's the native export format for [Aseprite](https://www.aseprite.org/), making it perfect for modern pixel art workflows.
+**PCX** (ZSoft Paintbrush) is a classic DOS image format (1985) widely used in retro games like DOOM, Duke Nukem, and Commander Keen. It is exported by [Pix8](https://pix8.app), our own 8-bit pixel art editor, and by [Aseprite](https://www.aseprite.org/) — so modern pixel art workflows map onto it directly.
 
 ## Overview
 
@@ -92,7 +92,38 @@ for i := 0 to 255 do
 
 ## Creating PCX Files
 
-### Aseprite (Recommended)
+### Pix8 (Recommended)
+
+[Pix8](https://pix8.app) is our own 256-color indexed pixel art editor — runs in the browser
+or as a Windows desktop app. Everything is 8-bit indexed by default, so there is no color mode
+to switch and no risk of an accidental truecolor export.
+
+1. **Create image** (File → New...)
+   - **Size**: 320×200 (full screen), 32×32 (sprites), 16×16 (tiles)
+   - Already indexed (256 colors) — nothing else to set
+
+2. **Draw your pixel art**
+   - Use up to 256 colors
+   - Color 0 = transparent (engine convention)
+   - The GrafX2-style palette editor has a 6-bit VGA mode, matching the VGA DAC exactly
+
+3. **Export** (File → Export as..., Ctrl+Shift+E)
+   - **Format**: PCX
+
+4. **Save to** `D:\ENGINE\DATA\YOURIMAGE.PCX`
+
+Pix8 also exports [SPX](../ADVANCED/SPX.md) (sprite XML + packed PCX sheets), so animated
+sprites can go straight from the editor into the Resource Manager.
+
+### GrafX2
+
+The classic DOS-style pixel art editor. Roughly the same feature set as Pix8, and it still
+covers a couple of things Pix8 does not (dithering, gradient fill).
+
+1. Draw with 256 colors
+2. Save as PCX (RLE-compressed)
+
+### Aseprite
 
 1. **Create sprite** (File → New)
    - **Mode**: Indexed (256 colors)
@@ -274,8 +305,9 @@ VGA_B := PCX_B shr 2;
 ## References
 
 - **ZSoft PCX Specification**: [Available at FileFormat.Info](https://www.fileformat.info/format/pcx/egff.htm)
-- **Aseprite**: https://www.aseprite.org/
+- **Pix8** (recommended, PCX + SPX export): https://pix8.app
 - **GrafX2** (for PCX): http://grafx2.chez.com/
+- **Aseprite**: https://www.aseprite.org/
 
 ## See Also
 

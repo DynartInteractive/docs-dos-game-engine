@@ -656,7 +656,7 @@ To avoid going insane in TP7, I’d do it incrementally:
 
 5. **Step 5 – Atlas + PCX**
 
-   * Build one atlas, save PCX; inspect visually (GrafX2).
+   * Build one atlas, save PCX; inspect visually (Pix8 / GrafX2).
 
 6. **Step 6 – Full TMX rewrite**
 

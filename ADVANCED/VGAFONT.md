@@ -728,9 +728,13 @@ end;
 
 ## Font Creation Workflow
 
-### Step 1: Design Font in GrafX2
+### Step 1: Design Font in Pix8
 
-1. **Create new image:**
+Use [Pix8](https://pix8.app), our own 256-color pixel art editor (browser + Windows desktop
+app) — images are 8-bit indexed by default. [GrafX2](http://grafx2.chez.com/) works just as
+well if you prefer it; the steps below are the same in both.
+
+1. **Create new image** (File → New...):
    - Width: 512 pixels (or as needed)
    - Height: 64-128 pixels (depends on character count)
    - Colors: 256 (indexed palette)
@@ -749,8 +753,10 @@ end;
    ```
 
 4. **Save as PCX:**
-   - File → Export → PCX format (8-bit indexed color)
+   - File → Export as... (Ctrl+Shift+E) → PCX
    - Save to `DATA\FONTS\MYFONT.PCX`
+   - Pix8's rulers and guides make it easy to read off the per-character `x`/`width`
+     values you need for the XML metadata in Step 2
 
 ---
 

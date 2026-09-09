@@ -112,7 +112,7 @@ to switch and no risk of an accidental truecolor export.
 
 4. **Save to** `D:\ENGINE\DATA\YOURIMAGE.PCX`
 
-Pix8 also exports [SPX](../ADVANCED/SPX.md) (sprite XML + packed PCX sheets), so animated
+Pix8 also exports [SPX](../ENGINE/SPX.md) (sprite XML + packed PCX sheets), so animated
 sprites can go straight from the editor into the Resource Manager.
 
 ### GrafX2
@@ -312,4 +312,4 @@ VGA_B := PCX_B shr 2;
 ## See Also
 
 - **[VGA.md](VGA.md)** - Graphics API reference
-- **[UNITS_REFERENCE.md](UNITS_REFERENCE.md)** - Complete units documentation
+- **[Graphics & Input](index.md)** - All graphics and input modules

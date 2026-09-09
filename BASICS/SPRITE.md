@@ -174,7 +174,7 @@ end.
 
 ## Loading from SPX
 
-The simplest way to set up sprites is via an SPX file (see [SPX Format](../ADVANCED/SPX.md)):
+The simplest way to set up sprites is via an SPX file (see [SPX Format](../ENGINE/SPX.md)):
 
 ```pascal
 uses VGA, Sprite, RTCTimer;
@@ -360,5 +360,5 @@ end;
 - Color 0 = transparent when drawing
 - Use with RTCTIMER for accurate delta-time
 - Use `LoadSPX` for standalone sprite loading from SPX files
-- See [SPX Format](../ADVANCED/SPX.md) for SPX file format details
+- See [SPX Format](../ENGINE/SPX.md) for SPX file format details
 - See RESMAN.PAS for integrated resource management with `<sprite-xml>` tags

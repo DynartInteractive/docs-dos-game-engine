@@ -1,8 +1,9 @@
 # Getting Started
 
-Quick start guides for building and creating your first DOS game with the engine.
+Build the engine, create your assets, and write a complete working game.
 
-Learn how to compile the engine, create game assets, and build a complete example program.
+Three steps: compile the units, produce the images, sounds and music, then put a game
+together on top of the [engine framework](../ENGINE/BASEGAME.md).
 
 ```{toctree}
 :maxdepth: 1

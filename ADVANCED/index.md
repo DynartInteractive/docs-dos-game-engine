@@ -1,21 +1,14 @@
-# Advanced Features
+# Advanced Topics
 
-Game framework, resource management, UI widgets, and optimization systems.
+Framework internals, partial screen updates and extended memory.
 
-High-level systems for building complete DOS games with professional features.
+Reference material for optimizing, debugging startup order, or working below the
+framework.
 
 ```{toctree}
 :maxdepth: 1
 
-BASEGAME
-CONFIG
-MINIXML
-RESMAN
-SPX
-VGAFONT
-VGAUI
+INTERNALS
 DRECT
-HISCORE
-TILEMAP
-TEXTUI
+XMS
 ```

@@ -9,7 +9,7 @@ Use [Pix8](https://pix8.app) our own 256-color pixel art editor (browser + Windo
 3. **File → Export as...** (Ctrl+Shift+E) → PCX (RLE-compressed)
    - Common sizes: 320×200 (full screen), 32×32 (sprites), 16×16 (tiles)
 
-Pix8 also exports [SPX](../ADVANCED/SPX.md) sprite sheets directly, which is the fastest way
+Pix8 also exports [SPX](../ENGINE/SPX.md) sprite sheets directly, which is the fastest way
 to get animated sprites into the engine. See [Sprite Sheets](#sprite-sheets) below.
 
 Alternatives:
@@ -25,7 +25,7 @@ Use [Pix8](https://pix8.app) to build the sheet and its animations in one go:
 3. You get a ZIP with the `.SPX` sprite definition plus the packed `.PCX` sheet(s) —
    unpack it into your `DATA\` directory and reference the `.SPX` from `resources.xml`
 
-See the [SPX format documentation](../ADVANCED/SPX.md) for the file layout.
+See the [SPX format documentation](../ENGINE/SPX.md) for the file layout.
 
 ## VOC Sound Effects
 
@@ -57,5 +57,5 @@ Alternatives:
 ## TMX tilemaps
 
 Use [Tiled](https://www.mapeditor.org/) a full-featured level editor (Windows/Linux/Mac).
-See the restrictions at the [tilemap documentation](../ADVANCED/TILEMAP.md).
+See the restrictions at the [tilemap documentation](../BASICS/TILEMAP.md).
 

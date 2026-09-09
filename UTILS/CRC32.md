@@ -166,4 +166,4 @@ Fast on all target hardware (286+):
 
 ## See Also
 
-- [HISCORE.PAS](../ADVANCED/HISCORE.md) - High score management (uses CRC32)
+- [HISCORE.PAS](../UI/HISCORE.md) - High score management (uses CRC32)

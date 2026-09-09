@@ -4,7 +4,7 @@
 > engine-owned `TSpriteData` during parsing), the uninitialized `UsePalette` + typo
 > (replaced by a named `PaletteName` palette reference), missing `path` validation
 > (now guarded on every resource type), and the leaked `PSoundData` wrapper (now
-> disposed in `Done`). Kept for historical context. Current API: [ADVANCED/RESMAN.md](../ADVANCED/RESMAN.md).
+> disposed in `Done`). Kept for historical context. Current API: [ENGINE/RESMAN.md](../ENGINE/RESMAN.md).
 
 ---
 

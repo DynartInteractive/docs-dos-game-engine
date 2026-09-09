@@ -9,7 +9,9 @@ Source code: https://github.com/DynartInteractive/DOS-Game-Engine
 :caption: Contents
 
 STARTING/index
+ENGINE/index
 BASICS/index
 AUDIO/index
+UI/index
 ADVANCED/index
 UTILS/index

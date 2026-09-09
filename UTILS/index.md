@@ -1,8 +1,6 @@
 # Utilities & Libraries
 
-Essential utility modules for data structures and system services.
-
-Supporting libraries for memory management, timing, text UI, and data manipulation.
+Supporting libraries for data structures, timing, logging and parsing.
 
 ```{toctree}
 :maxdepth: 1
@@ -14,5 +12,5 @@ STRUTIL
 LINKLIST
 STRMAP
 CRC32
-XMS
+MINIXML
 ```

@@ -1,17 +1,19 @@
-# Basics
+# Graphics & Input
 
-Core VGA graphics, image formats, sprite animation, and tilemap rendering systems.
+VGA Mode 13h graphics, image formats, sprite animation, tilemaps, keyboard and mouse.
 
-Essential modules for 320×200 256-color graphics, double-buffered rendering, and game animation.
+The subsystems the [game framework](../ENGINE/BASEGAME.md) drives for you. Each one also
+works standalone if you are writing a demo or driving the hardware directly.
 
 ```{toctree}
 :maxdepth: 1
 
 VGA
 VGAPRINT
-KEYBOARD
-MOUSE
+SPRITE
+TILEMAP
 PCX
 BMP
-SPRITE
+KEYBOARD
+MOUSE
 ```

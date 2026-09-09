@@ -8,7 +8,7 @@
 > sprite frames are copied out of the XML tree during parsing (no dangling XML pointers);
 > required-attribute validation and `PSoundData` cleanup are in place. `<level>` /
 > TMX-as-a-resource is **not** wired into RESMAN — maps are loaded via `TMXLOAD` directly.
-> **For the current, accurate API see [ADVANCED/RESMAN.md](../ADVANCED/RESMAN.md) and the
+> **For the current, accurate API see [ENGINE/RESMAN.md](../ENGINE/RESMAN.md) and the
 > shipped unit.** The issues raised in `RESMAN-review.md` are all resolved in the code.
 
 Centralized resource management system for loading and accessing game assets from XML definition files.
@@ -63,7 +63,7 @@ Centralized resource management system for loading and accessing game assets fro
 - `sprite-xml` requires `path` attribute pointing to an external SPX file (no `name` needed)
 
 **External Sprite XML (SPX) Files:**
-Sprites can also be defined in external `.SPX` files referenced via `<sprite-xml path="FILE.SPX" />`. SPX files support additional features: default `width`/`height` on `<sprite>`, per-frame `offset-x`/`offset-y`, and per-frame `duration`. Image paths in SPX files are relative to the SPX file location. See [SPX Format](../ADVANCED/SPX.md) for full format documentation.
+Sprites can also be defined in external `.SPX` files referenced via `<sprite-xml path="FILE.SPX" />`. SPX files support additional features: default `width`/`height` on `<sprite>`, per-frame `offset-x`/`offset-y`, and per-frame `duration`. Image paths in SPX files are relative to the SPX file location. See [SPX Format](../ENGINE/SPX.md) for full format documentation.
 
 **Note:** Level resources (`<level>`) are not yet implemented and will be metadata-based requiring additional design work.
 

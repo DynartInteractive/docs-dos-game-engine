@@ -19,7 +19,8 @@ result in Pix8.
 Alternatives:
 - [GrafX2](http://grafx2.chez.com/) — the classic DOS-style pixel art editor (Windows/Linux/Mac).
   Comparable feature set to Pix8, and it still has a few things Pix8 lacks (dithering, gradient fill).
-- [Aseprite](https://www.aseprite.org/) — modern pixel art editor, PCX export (paid).
+- [Aseprite](https://www.aseprite.org/) — a polished modern pixel art editor with layers, animation
+  and an indexed color mode; exports PCX.
 
 ## Sprite Sheets
 

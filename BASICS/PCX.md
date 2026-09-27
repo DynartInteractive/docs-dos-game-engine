@@ -94,9 +94,9 @@ for i := 0 to 255 do
 
 ### Pix8 (Recommended)
 
-[Pix8](https://pix8.app) is our own 256-color indexed pixel art editor — runs in the browser
-or as a Windows desktop app. Everything is 8-bit indexed by default, so there is no color mode
-to switch and no risk of an accidental truecolor export.
+[Pix8](https://pix8.app) is our own 256-color indexed pixel art editor — it runs right in the
+browser, with nothing to install (or as a Windows desktop app), and it exports
+[SPX](../ENGINE/SPX.md) sprite sheets as well as PCX.
 
 1. **Create image** (File → New...)
    - **Size**: 320×200 (full screen), 32×32 (sprites), 16×16 (tiles)
@@ -124,6 +124,9 @@ covers a couple of things Pix8 does not (dithering, gradient fill).
 2. Save as PCX (RLE-compressed)
 
 ### Aseprite
+
+A polished modern pixel art editor — layers, animation, and a proper indexed color mode — and
+it exports PCX directly.
 
 1. **Create sprite** (File → New)
    - **Mode**: Indexed (256 colors)

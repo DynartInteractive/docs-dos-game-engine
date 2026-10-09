@@ -78,7 +78,10 @@ procedure DrawHLine(X, Y, Width: Integer; Color: Byte; FrameBuffer: PFrameBuffer
 procedure DrawVLine(X, Y, Height: Integer; Color: Byte; FrameBuffer: PFrameBuffer);
 procedure DrawRect(X, Y, Width, Height: Integer; Color: Byte; FrameBuffer: PFrameBuffer);
 procedure DrawFillRect(X, Y, Width, Height: Integer; Color: Byte; FrameBuffer: PFrameBuffer);
+procedure DrawDitherRect(const R: TRectangle; Color: Byte; FrameBuffer: PFrameBuffer);
 ```
+
+**DrawDitherRect** - Fills every other pixel of the rectangle with `Color` in a checkerboard ("pepita") pattern, leaving the rest untouched. Drawing color 0 over the whole screen dims it behind a dialog or pause menu. The pattern is aligned to the screen (pixels where X + Y is odd), so adjacent rectangles join seamlessly. Respects the clip rectangle.
 
 ### Images
 
